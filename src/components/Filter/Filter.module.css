@@ -1,4 +1,4 @@
-.input {
+/* .input {
     margin: 0 auto 15px;
     max-width: 300px;
     background-color: F2F2F2;
@@ -16,4 +16,18 @@
 .input:focus {
     border-color: #005A9E;
     outline: #005A9E;
+} */
+
+.itemFilter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.itemElement {
+    width: 120px;
+}
+
+.itemTextFilter {
+    margin-right: 10px;
 }

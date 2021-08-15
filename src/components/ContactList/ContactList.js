@@ -1,24 +1,37 @@
 import PropTypes from 'prop-types';
 import styles from './ContactList.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteContact } from '../redux/contact/contact-action';
+import { getVisibleContact } from '../redux/contact/contact-selector';
+
+import { Button } from '@material-ui/core';
 
 
-function ContactList ({ contacts, onDeleteContact }) {
+function ContactList () {
+  const contacts = useSelector(getVisibleContact);
+  const dispatch = useDispatch();
+
+  const onDeleteContact = id => dispatch(deleteContact(id));
+
   return (
-    <ul className={styles.list}>
-      {contacts.map(({ id, name, number }) => (
-        <li key={id} className={styles.item}>
-          <p className={styles.text}>{name}</p>
-          <p className={styles.text}>{number}</p>
-          <button
-            type="button"
-            onClick={() => onDeleteContact(id)}
-            className={styles.button}
-          >
-            Видалити
-          </button>
-        </li>
-      ))}
-    </ul>
+    <>
+      {!contacts.length && <div>Немає жодного контакту</div>}
+      <ul>
+        {contacts.map(({ id, name, number }) => (
+          <li key={id} className={styles.item__contact}>
+            <p className={styles.item__text}>{name}</p>
+            <p className={styles.item__text}>{number}</p>
+            <Button
+              className={styles.item__button}
+              onClick={() => onDeleteContact(id)}
+              color="secondary"
+            >
+              Видалити
+            </Button>
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }
 

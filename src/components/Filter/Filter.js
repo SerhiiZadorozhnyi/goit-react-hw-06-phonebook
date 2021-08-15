@@ -1,24 +1,26 @@
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from "react-redux";
+import { changeFilter } from "components/redux/contact/contact-action";
 import styles from './Filter.module.css';
+import { getFilter } from "components/redux/contact/contact-selector";
+import { Input } from '@material-ui/core';
 
 
-function Filter({ value, onChange }) {
+function Filter() {
+  const value = useSelector(getFilter);
+  const dispatch = useDispatch();
+
+
   return (
-    <label>
-      <p>Пошук контактів:</p>
-      <input
-        className={styles.input}
+    <label className={styles.itemFilter}>
+      <p className={styles.itemTextFilter}>Поиск контактов</p>
+      <Input
+        className={styles.itemElement}
         type="text"
         value={value}
-        onChange={onChange}
+        onChange={event => dispatch(changeFilter(event.target.value))}
       />
     </label>
   );
 }
-  
-Filter.propTypes = {
-    value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
-};
-  
+
 export default Filter;
